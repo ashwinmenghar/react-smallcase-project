@@ -4,6 +4,7 @@ import { RiErrorWarningFill } from "react-icons/ri";
 
 const InvestmentStrategy = () => {
   const [strategies, setStrategies] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [selectStrategies, setSelectStrategies] = useState([]);
 
   useEffect(() => {

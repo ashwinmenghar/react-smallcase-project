@@ -4,8 +4,9 @@ import {
   FireIcon,
   XCircleIcon,
 } from "@heroicons/react/24/solid";
+import { RiErrorWarningFill } from "react-icons/ri";
 
-const options = [
+const INVESTMENT_OPTIONS = [
   {
     id: "low",
     label: "Low",
@@ -23,28 +24,40 @@ const options = [
   },
 ];
 
-export default function RiskLevelSelector() {
-  const [selected, setSelected] = useState(null);
+const RiskLevelSelector = () => {
+  const [selected, setSelected] = useState([]); // Initialize as an array for multiple selections
 
   const toggle = (optionId) => {
-    setSelected((prevOption) => (prevOption === optionId ? null : optionId));
+    setSelected((prev) => {
+      if (prev.includes(optionId)) {
+        return prev.filter((id) => id !== optionId);
+      } else {
+        return [...prev, optionId];
+      }
+    });
   };
 
   return (
     <>
+      <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
+        <p>Volatility</p>
+        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <RiErrorWarningFill className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+        </div>
+      </div>
       <div className="flex gap-1">
-        {options.map((option) => (
+        {INVESTMENT_OPTIONS.map((option) => (
           <div
             key={option.id}
-            className={`flex flex-col items-center py-2 w-17 text-sm  border border-gray-200 rounded-lg cursor-pointer transition-all ${
-              selected === option.id
-                ? "border-blue-500 bg-blue-100"
-                : "border-gray-300"
+            className={`flex flex-col items-center py-2 w-16 text-sm rounded-lg cursor-pointer border ${
+              selected.includes(option.id)
+                ? "border-2 border-blue-500"
+                : "border-gray-300 hover:bg-gray-100"
             }`}
             onClick={() => toggle(option.id)}
           >
             {option.icon}
-            <span className=" font-medium mt-2 text-sm text-gray-500">
+            <span className="font-medium mt-2 text-sm text-gray-500">
               {option.label}
             </span>
           </div>
@@ -52,4 +65,6 @@ export default function RiskLevelSelector() {
       </div>
     </>
   );
-}
+};
+
+export default RiskLevelSelector;
