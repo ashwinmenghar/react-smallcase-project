@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Smallcases from "../../public/smallcases.json"; // Ensure this JSON file has valid syntax
+import { RiErrorWarningFill } from "react-icons/ri";
 
 const InvestmentStrategy = () => {
   const [strategies, setStrategies] = useState([]);
@@ -32,6 +33,14 @@ const InvestmentStrategy = () => {
 
   return (
     <>
+      <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
+        <p>Investment Strategy</p>
+        <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
+          <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
+            <RiErrorWarningFill className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+          </div>
+        </div>
+      </div>
       {strategies?.map((strategy) => (
         <div
           className="flex items-center hover:bg-gray-100 p-2 rounded cursor-pointer"
