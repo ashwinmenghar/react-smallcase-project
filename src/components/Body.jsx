@@ -10,6 +10,7 @@ import {
   XCircleIcon,
 } from "@heroicons/react/24/solid";
 import RiskLevelSelector from "./RiskLevelSelector";
+import InvestmentStrategy from "./InvestmentStrategy";
 
 const Body = () => {
   return (
@@ -32,27 +33,29 @@ const Body = () => {
           </div>
           {/* Add more filter options here */}
           <div className="">
-            <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
-              <p>Subscription Type</p>
-              <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
-                <RiErrorWarningFill className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+            <div className="">
+              <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
+                <p>Subscription Type</p>
+                <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
+                  <RiErrorWarningFill className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+                </div>
+              </div>
+
+              <div className="join mb-8">
+                <button className="join-item btn border-r-0 bg-blue-50 text-blue-500 w-20 py-6 hover:bg-gray-200">
+                  Show all
+                </button>
+                <button className="join-item btn border-r-0 border-l-0 bg-blue-50 text-blue-500 w-20 py-6 hover:bg-gray-200">
+                  Free access
+                </button>
+                <button className="join-item btn border-l-0 bg-blue-50 text-blue-500 w-20 py-6 hover:bg-gray-200">
+                  Fee based
+                </button>
               </div>
             </div>
 
-            <div className="join mb-8">
-              <button className="join-item btn border-r-0 bg-blue-50 text-blue-500 w-20 py-6 hover:bg-gray-200">
-                Show all
-              </button>
-              <button className="join-item btn border-r-0 border-l-0 bg-blue-50 text-blue-500 w-20 py-6 hover:bg-gray-200">
-                Free access
-              </button>
-              <button className="join-item btn border-l-0 bg-blue-50 text-blue-500 w-20 py-6 hover:bg-gray-200">
-                Fee based
-              </button>
-            </div>
-
             {/* Investment Amount */}
-            <div className="mb-3">
+            <div className="mb-5">
               <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
                 <p>Investment Amount</p>
                 <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
@@ -118,7 +121,7 @@ const Body = () => {
             </div>
 
             {/* Volatility */}
-            <div className="mb-2">
+            <div className="mb-5">
               <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
                 <p>Investment Amount</p>
                 <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
@@ -129,13 +132,59 @@ const Body = () => {
             </div>
 
             {/* Launch Date */}
-            <div className="">
+            <div className="mb-5">
               <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
                 <p>Launch Date</p>
                 <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
-                  <RiErrorWarningFill className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+                  <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
+                    <RiErrorWarningFill className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+                  </div>
                 </div>
               </div>
+
+              <div className="flex items-center hover:bg-gray-100 p-2 rounded cursor-pointer">
+                <input
+                  id="link-checkbox"
+                  type="checkbox"
+                  value=""
+                  className="w-4 h-4 cursor-pointer"
+                />
+                <label
+                  htmlFor="link-checkbox"
+                  className="ms-2 text-sm font-medium text-gray-600 cursor-pointer"
+                >
+                  Include new smallcases .
+                </label>
+              </div>
+            </div>
+
+            {/* Investment Strategy */}
+            <div className="mt-2">
+              <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
+                <p>Investment Strategy</p>
+                <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
+                  <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
+                    <RiErrorWarningFill className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+                  </div>
+                </div>
+              </div>
+
+              <InvestmentStrategy />
+
+              {/* <div className="flex items-center hover:bg-gray-100 p-2 rounded cursor-pointer">
+                <input
+                  id="link-checkbox"
+                  type="checkbox"
+                  value=""
+                  className="w-4 h-4 cursor-pointer"
+                />
+                <label
+                  for="link-checkbox"
+                  className="ms-2 text-sm font-medium text-gray-600 cursor-pointer"
+                >
+                  Include new smallcases .
+                </label>
+              </div> */}
             </div>
           </div>
         </div>
