@@ -3,6 +3,13 @@ import { FaChevronDown } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import Tabs from "./Tabs";
 import { RiErrorWarningFill } from "react-icons/ri";
+import { MdCheckCircleOutline } from "react-icons/md";
+import {
+  CheckCircleIcon,
+  FireIcon,
+  XCircleIcon,
+} from "@heroicons/react/24/solid";
+import RiskLevelSelector from "./RiskLevelSelector";
 
 const Body = () => {
   return (
@@ -44,10 +51,90 @@ const Body = () => {
               </button>
             </div>
 
-            <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
-              <p>Subscription Type</p>
-              <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
-                <RiErrorWarningFill className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+            {/* Investment Amount */}
+            <div className="mb-3">
+              <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
+                <p>Investment Amount</p>
+                <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
+                  <RiErrorWarningFill className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+                </div>
+              </div>
+              <div className="cursor-pointer hover:bg-gray-100 my-1 px-[4px] py-[3px] rounded">
+                <input
+                  type="radio"
+                  className="mr-2 cursor-pointer"
+                  name="investment-amount"
+                  id="any"
+                />
+                <label
+                  htmlFor="any"
+                  className=" text-gray-600 text-[15px] cursor-pointer font-light"
+                >
+                  Any
+                </label>
+              </div>
+              <div className="cursor-pointer hover:bg-gray-100 my-1 px-[4px] py-[3px] rounded">
+                <input
+                  type="radio"
+                  className="mr-2 cursor-pointer"
+                  name="investment-amount"
+                  id="under-5000"
+                />
+                <label
+                  htmlFor="under-5000"
+                  className=" text-gray-600 text-[15px] cursor-pointer font-light"
+                >
+                  Under &#8377; 5,000
+                </label>
+              </div>
+              <div className="cursor-pointer hover:bg-gray-100 my-1 px-[4px] py-[3px] rounded">
+                <input
+                  type="radio"
+                  className="mr-2 cursor-pointer"
+                  name="investment-amount"
+                  id="under-25000"
+                />
+                <label
+                  htmlFor="under-25000"
+                  className=" text-gray-600 text-[15px] cursor-pointer font-light"
+                >
+                  Under &#8377; 25,000
+                </label>
+              </div>
+              <div className="cursor-pointer hover:bg-gray-100 my-1 px-[4px] py-[3px] rounded">
+                <input
+                  type="radio"
+                  className="mr-2 cursor-pointer"
+                  name="investment-amount"
+                  id="under-50000"
+                />
+                <label
+                  htmlFor="under-50000"
+                  className="text-gray-600 text-[15px] cursor-pointer font-light"
+                >
+                  Under &#8377; 50,000
+                </label>
+              </div>
+            </div>
+
+            {/* Volatility */}
+            <div className="mb-2">
+              <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
+                <p>Investment Amount</p>
+                <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
+                  <RiErrorWarningFill className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+                </div>
+              </div>
+              <RiskLevelSelector />
+            </div>
+
+            {/* Launch Date */}
+            <div className="">
+              <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
+                <p>Launch Date</p>
+                <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
+                  <RiErrorWarningFill className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+                </div>
               </div>
             </div>
           </div>
