@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import Smallcases from "../smallcases.json";
 import { RiErrorWarningFill } from "react-icons/ri";
 
-const InvestmentStrategy = () => {
+const InvestmentStrategy = ({ investmentStrategy, setRiskLevelSelector }) => {
   const [strategies, setStrategies] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [selectStrategies, setSelectStrategies] = useState([]);
 
   useEffect(() => {
     const getAllStrategies = () => {
@@ -19,17 +17,19 @@ const InvestmentStrategy = () => {
         });
       });
 
-      setStrategies(Array.from(strategiesMap.values()));
+      setStrategies(
+        Array.from(strategiesMap.values()).sort((a, b) => a.key.localeCompare(b.key))
+      );
     };
     getAllStrategies();
   }, []);
 
   const handleStrategies = (strategy) => {
-    setSelectStrategies((prevStrategies) =>
-      prevStrategies.includes(strategy.key)
-        ? prevStrategies.filter((key) => key !== strategy.key)
-        : [...prevStrategies, strategy.key]
-    );
+    const newInvestmentStrategy = investmentStrategy.includes(strategy.key)
+      ? investmentStrategy.filter((key) => key !== strategy.key)
+      : [...investmentStrategy, strategy.key];
+
+    setRiskLevelSelector(newInvestmentStrategy);
   };
 
   return (
