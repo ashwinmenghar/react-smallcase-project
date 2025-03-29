@@ -1,12 +1,8 @@
 import React from "react";
 import { RiErrorWarningFill } from "react-icons/ri";
-import { investmentAmountOptions } from "../constants/constant";
+import { INVESTMENTAMOUNTOPTIONS } from "../constants/constant";
 
 const InvestmentAmount = ({ investmentAmount, setInvestmentAmount }) => {
-  // const [investmentAmount, setInvestmentAmount] = useState(
-  //   investmentAmountOptions[0].value
-  // );
-
   // Function to handle radio button selection
   const handleCheckedVolatility = (amount) => {
     if (investmentAmount == amount) {
@@ -23,7 +19,7 @@ const InvestmentAmount = ({ investmentAmount, setInvestmentAmount }) => {
           <RiErrorWarningFill className="text-gray-400 hover:text-gray-600 cursor-pointer" />
         </div>
       </div>
-      {investmentAmountOptions.map((option) => (
+      {INVESTMENTAMOUNTOPTIONS.map((option) => (
         <div
           className="cursor-pointer hover:bg-gray-100 my-1 px-[4px] py-[3px] rounded"
           key={option.id}
