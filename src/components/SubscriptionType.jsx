@@ -1,15 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { RiErrorWarningFill } from "react-icons/ri";
+import { SUBSCRIPTIONOPTIONS } from "../constants/constant";
 
 const SubscriptionType = ({ subscriptionType, setSubscriptionType }) => {
-  // const [subscriptionType, setSubscriptionType] = useState(null);
-
-  const subscriptionOptions = [
-    { label: "Show all", value: null },
-    { label: "Free access", value: "public" },
-    { label: "Fee based", value: "private" },
-  ];
-
   return (
     <div>
       <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
@@ -18,7 +11,7 @@ const SubscriptionType = ({ subscriptionType, setSubscriptionType }) => {
       </div>
 
       <div className="join mb-8">
-        {subscriptionOptions.map((option, index) => (
+        {SUBSCRIPTIONOPTIONS.map((option, index) => (
           <button
             key={option.value}
             className={`join-item btn bg-blue-50 w-20 py-6 hover:bg-gray-200 

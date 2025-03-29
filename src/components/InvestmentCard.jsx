@@ -29,6 +29,7 @@ const riskLabelConfig = {
 
 const InvestmentCard = ({ filters }) => {
   sortSmallcases(Smallcases.data);
+
   const filteredSmallcases = Smallcases.data.filter((data) =>
     Object.entries(filters).every(([key, value]) => {
       if (!value) return true; // Skip if filter is not set
@@ -43,6 +44,21 @@ const InvestmentCard = ({ filters }) => {
           return value === "any"
             ? true
             : data.stats.minInvestAmount <= Number(value);
+        case "riskLevelSelector":
+          return (
+            !value.length ||
+            value.some((risk) =>
+              data.stats.ratios.riskLabel.toLowerCase().includes(risk)
+            )
+          );
+
+        case "investmentStrategy":
+          return (
+            !value.length ||
+            data.info.investmentStrategy.some((strategy) => {
+              return value.some((key) => key === strategy.key);
+            })
+          );
         default:
           return true;
       }
@@ -50,6 +66,7 @@ const InvestmentCard = ({ filters }) => {
   );
 
   console.log(filteredSmallcases);
+  console.log(filters);
 
   return (
     <>
