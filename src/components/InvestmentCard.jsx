@@ -7,7 +7,11 @@ import {
 } from "@heroicons/react/24/solid";
 
 import { FaRegBookmark } from "react-icons/fa";
-import { sortSmallcases, truncateText } from "../helper/helper";
+import {
+  isLessThanOneYearOld,
+  sortSmallcases,
+  truncateText,
+} from "../helper/helper";
 
 const riskLabelConfig = {
   "Low Volatility": {
@@ -32,32 +36,34 @@ const InvestmentCard = ({ filters }) => {
 
   const filteredSmallcases = Smallcases.data.filter((data) =>
     Object.entries(filters).every(([key, value]) => {
-      if (!value) return true; // Skip if filter is not set
       switch (key) {
-        case "riskLabel":
-          return data.stats.ratios.riskLabel === value;
-        case "minInvestAmount":
-          return data.stats.minInvestAmount >= value;
         case "subscriptionType":
-          return data.flags.private !== (value === "public");
+          return value === null || data.flags.private !== (value === "public");
+
         case "investmentAmount":
-          return value === "any"
-            ? true
-            : data.stats.minInvestAmount <= Number(value);
+          return value === "any" || data.stats.minInvestAmount <= Number(value);
+
         case "riskLevelSelector":
           return (
             !value.length ||
             value.some((risk) =>
-              data.stats.ratios.riskLabel.toLowerCase().includes(risk)
+              data.stats.ratios?.riskLabel?.toLowerCase().includes(risk)
             )
+          );
+
+        case "launchDate":
+          return (
+            value === false ||
+            (value === true &&
+              isLessThanOneYearOld(data.info.nameAttributes.createdAt))
           );
 
         case "investmentStrategy":
           return (
             !value.length ||
-            data.info.investmentStrategy.some((strategy) => {
-              return value.some((key) => key === strategy.key);
-            })
+            data.info.investmentStrategy?.some((strategy) =>
+              value.includes(strategy.key)
+            )
           );
         default:
           return true;
