@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Smallcases from "../../public/smallcases.json"; // Ensure this JSON file has valid syntax
+import Smallcases from "../smallcases.json";
 import { RiErrorWarningFill } from "react-icons/ri";
 
 const InvestmentStrategy = () => {
