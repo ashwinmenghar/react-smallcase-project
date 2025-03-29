@@ -6,14 +6,15 @@ import InvestmentStrategy from "./InvestmentStrategy";
 import InvestmentAmount from "./InvestmentAmount";
 import SubscriptionType from "./SubscriptionType";
 import InvestmentCard from "./InvestmentCard";
+import LaunchDate from "./LaunchDate";
 
 const Body = () => {
   const [filters, setFilters] = useState({
     subscriptionType: null,
-    riskLevel: null,
     investmentAmount: "any",
     riskLevelSelector: [],
     investmentStrategy: [],
+    launchDate: true,
   });
 
   // Function to update filters dynamically
@@ -28,10 +29,10 @@ const Body = () => {
   const clearFilters = () => {
     setFilters({
       subscriptionType: null,
-      riskLevel: null,
       investmentAmount: "any",
       riskLevelSelector: [],
       investmentStrategy: [],
+      launchDate: true,
     });
   };
 
@@ -94,36 +95,17 @@ const Body = () => {
 
           {/* Launch Date */}
           <div className="mb-5">
-            <div className="font-bold text-sm mb-4 text-gray-600 flex items-center gap-1 group">
-              <p>Launch Date</p>
-              <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
-                <div className="opacity-0 group-hover:opacity-100  transition-opacity duration-200">
-                  <RiErrorWarningFill className="text-gray-400 hover:text-gray-600 cursor-pointer" />
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center hover:bg-gray-100 p-2 rounded cursor-pointer">
-              <input
-                id="link-checkbox"
-                type="checkbox"
-                value=""
-                className="w-4 h-4 cursor-pointer"
-              />
-              <label
-                htmlFor="link-checkbox"
-                className="ms-2 text-sm font-medium text-gray-600 cursor-pointer"
-              >
-                Include new smallcases .
-              </label>
-            </div>
+            <LaunchDate
+              launchDate={filters.launchDate}
+              setLaunchDate={(value) => updateFilter("launchDate", value)}
+            />
           </div>
 
           {/* Investment Strategy */}
           <div className="mt-2">
             <InvestmentStrategy
               investmentStrategy={filters.investmentStrategy}
-              setRiskLevelSelector={(value) =>
+              setInvestmentStrategy={(value) =>
                 updateFilter("investmentStrategy", value)
               }
             />
