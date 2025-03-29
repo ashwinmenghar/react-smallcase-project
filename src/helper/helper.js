@@ -8,5 +8,15 @@ export const sortSmallcases = (data) => {
 };
 
 export const truncateText = (text, maxLength = 100) => {
-  return text.length > maxLength ? text.slice(0, maxLength).trimEnd() + "..." : text;
+  return text.length > maxLength
+    ? text.slice(0, maxLength).trimEnd() + "..."
+    : text;
+};
+
+export const isLessThanOneYearOld = (dateString) => {
+  const givenDate = new Date(dateString);
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+  return givenDate > oneYearAgo;
 };
