@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   CheckCircleIcon,
   FireIcon,
@@ -24,17 +23,13 @@ const INVESTMENT_OPTIONS = [
   },
 ];
 
-const RiskLevelSelector = () => {
-  const [selected, setSelected] = useState([]); // Initialize as an array for multiple selections
-
+const RiskLevelSelector = ({ riskLevelSelector, setRiskLevelSelector }) => {
+  // Store risk levels
   const toggle = (optionId) => {
-    setSelected((prev) => {
-      if (prev.includes(optionId)) {
-        return prev.filter((id) => id !== optionId);
-      } else {
-        return [...prev, optionId];
-      }
-    });
+    const newRiskLevel = riskLevelSelector.includes(optionId)
+      ? riskLevelSelector.filter((id) => id !== optionId)
+      : [...riskLevelSelector, optionId];
+    setRiskLevelSelector(newRiskLevel);
   };
 
   return (
@@ -50,7 +45,7 @@ const RiskLevelSelector = () => {
           <div
             key={option.id}
             className={`flex flex-col items-center py-2 w-16 text-sm rounded-lg cursor-pointer border ${
-              selected.includes(option.id)
+              riskLevelSelector.includes(option.id)
                 ? "border-2 border-blue-500"
                 : "border-gray-300 hover:bg-gray-100"
             }`}

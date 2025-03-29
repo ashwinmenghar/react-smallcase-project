@@ -12,6 +12,8 @@ const Body = () => {
     subscriptionType: null,
     riskLevel: null,
     investmentAmount: "any",
+    riskLevelSelector: [],
+    investmentStrategy: [],
   });
 
   // Function to update filters dynamically
@@ -26,12 +28,16 @@ const Body = () => {
   const clearFilters = () => {
     setFilters({
       subscriptionType: null,
+      riskLevel: null,
+      investmentAmount: "any",
+      riskLevelSelector: [],
+      investmentStrategy: [],
     });
   };
 
   // **Calculate the count of applied filters**
   const appliedFiltersCount = Object.values(filters).filter(
-    (value) => value !== null
+    (value) => value !== null && value != "any"
   ).length;
 
   return (
@@ -78,7 +84,12 @@ const Body = () => {
 
           {/* Volatility */}
           <div className="mb-5">
-            <RiskLevelSelector />
+            <RiskLevelSelector
+              riskLevelSelector={filters.riskLevelSelector}
+              setRiskLevelSelector={(value) =>
+                updateFilter("riskLevelSelector", value)
+              }
+            />
           </div>
 
           {/* Launch Date */}
@@ -110,7 +121,12 @@ const Body = () => {
 
           {/* Investment Strategy */}
           <div className="mt-2">
-            <InvestmentStrategy />
+            <InvestmentStrategy
+              investmentStrategy={filters.investmentStrategy}
+              setRiskLevelSelector={(value) =>
+                updateFilter("investmentStrategy", value)
+              }
+            />
           </div>
         </div>
 
