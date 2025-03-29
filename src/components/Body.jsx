@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Tabs from "./Tabs";
 import { RiErrorWarningFill } from "react-icons/ri";
 import RiskLevelSelector from "./RiskLevelSelector";
@@ -8,6 +8,32 @@ import SubscriptionType from "./SubscriptionType";
 import InvestmentCard from "./InvestmentCard";
 
 const Body = () => {
+  const [filters, setFilters] = useState({
+    subscriptionType: null,
+    riskLevel: null,
+    investmentAmount: "any",
+  });
+
+  // Function to update filters dynamically
+  const updateFilter = (key, value) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [key]: value,
+    }));
+  };
+
+  // Function to clear all filters
+  const clearFilters = () => {
+    setFilters({
+      subscriptionType: null,
+    });
+  };
+
+  // **Calculate the count of applied filters**
+  const appliedFiltersCount = Object.values(filters).filter(
+    (value) => value !== null
+  ).length;
+
   return (
     <div className="lg:w-[1120px] mx-auto">
       {/* TABS */}
@@ -20,21 +46,34 @@ const Body = () => {
             <span className="text-sm text-gray-500">
               Filters
               <span className="bg-gray-200 text-gray-500 rounded py-1 px-2 ml-2">
-                1
+                {appliedFiltersCount}
               </span>
             </span>
-            <button className="ml-4 text-blue-500 text-xs font-semibold cursor-pointer">
+            <button
+              className="ml-4 text-blue-500 text-xs font-semibold cursor-pointer"
+              onClick={clearFilters}
+            >
               Clear All
             </button>
           </div>
           {/* Add more filter options here */}
           <div className="mb-1">
-            <SubscriptionType />
+            <SubscriptionType
+              subscriptionType={filters.subscriptionType}
+              setSubscriptionType={(value) =>
+                updateFilter("subscriptionType", value)
+              }
+            />
           </div>
 
           {/* Investment Amount */}
           <div className="mb-5">
-            <InvestmentAmount />
+            <InvestmentAmount
+              investmentAmount={filters.investmentAmount}
+              setInvestmentAmount={(value) =>
+                updateFilter("investmentAmount", value)
+              }
+            />
           </div>
 
           {/* Volatility */}
@@ -77,7 +116,7 @@ const Body = () => {
 
         {/* Cards Section */}
         <div className="w-full py-4">
-          <InvestmentCard />
+          <InvestmentCard filters={filters} />
         </div>
       </div>
     </div>

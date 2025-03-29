@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { RiErrorWarningFill } from "react-icons/ri";
 
-const SubscriptionType = () => {
-  const [subscriptionType, setSubscriptionType] = useState(null);
+const SubscriptionType = ({ subscriptionType, setSubscriptionType }) => {
+  // const [subscriptionType, setSubscriptionType] = useState(null);
 
   const subscriptionOptions = [
     { label: "Show all", value: null },

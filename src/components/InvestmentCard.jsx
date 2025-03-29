@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/solid";
 
 import { FaRegBookmark } from "react-icons/fa";
+import { sortSmallcases, truncateText } from "../helper/helper";
 
 const riskLabelConfig = {
   "Low Volatility": {
@@ -26,14 +27,37 @@ const riskLabelConfig = {
   },
 };
 
-const InvestmentCard = () => {
+const InvestmentCard = ({ filters }) => {
+  sortSmallcases(Smallcases.data);
+  const filteredSmallcases = Smallcases.data.filter((data) =>
+    Object.entries(filters).every(([key, value]) => {
+      if (!value) return true; // Skip if filter is not set
+      switch (key) {
+        case "riskLabel":
+          return data.stats.ratios.riskLabel === value;
+        case "minInvestAmount":
+          return data.stats.minInvestAmount >= value;
+        case "subscriptionType":
+          return data.flags.private !== (value === "public");
+        case "investmentAmount":
+          return value === "any"
+            ? true
+            : data.stats.minInvestAmount <= Number(value);
+        default:
+          return true;
+      }
+    })
+  );
+
+  console.log(filteredSmallcases);
+
   return (
     <>
-      {Smallcases.data.map((data) => {
+      {filteredSmallcases.map((data) => {
         const {
           _id,
           scid,
-          info: { name },
+          info: { name, shortDescription },
           flags: { private: isPrivate },
           stats: {
             minInvestAmount,
@@ -58,8 +82,8 @@ const InvestmentCard = () => {
               <div className="flex gap-7">
                 <div className="w-90">
                   <div className="flex gap-2">
-                    <h2 className="text-lg font-normal hover:text-blue-400">
-                      {name}
+                    <h2 className="text-lg font-normal group-hover:text-blue-400">
+                      {truncateText(name, 30)}
                     </h2>
                     {!isPrivate && (
                       <span className="text-blue-500 font-bold text-[9px] bg-blue-50 p-1 rounded text-center h-fit">
@@ -68,7 +92,7 @@ const InvestmentCard = () => {
                     )}
                   </div>
                   <p className="text-sm text-gray-600 font-thin mb-3">
-                    One investment for all market conditions. Works for everyone
+                    {truncateText(shortDescription)}
                   </p>
                   <span className="text-[#81878c] text-[15px] font-normal">
                     by Windmill Capital
