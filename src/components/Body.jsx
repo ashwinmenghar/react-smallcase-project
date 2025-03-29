@@ -1,18 +1,11 @@
 import React from "react";
-import { FaChevronDown } from "react-icons/fa";
-import { IoSearch } from "react-icons/io5";
 import Tabs from "./Tabs";
 import { RiErrorWarningFill } from "react-icons/ri";
-import { MdCheckCircleOutline } from "react-icons/md";
-import {
-  CheckCircleIcon,
-  FireIcon,
-  XCircleIcon,
-} from "@heroicons/react/24/solid";
 import RiskLevelSelector from "./RiskLevelSelector";
 import InvestmentStrategy from "./InvestmentStrategy";
 import InvestmentAmount from "./InvestmentAmount";
 import SubscriptionType from "./SubscriptionType";
+import InvestmentCard from "./InvestmentCard";
 
 const Body = () => {
   return (
@@ -84,12 +77,7 @@ const Body = () => {
 
         {/* Cards Section */}
         <div className="w-full py-4">
-          <div className="border border-gray-300 h-36 shadow rounded mb-5"></div>
-          <div className="border border-gray-300 h-36 shadow rounded mb-5"></div>
-          <div className="border border-gray-300 h-36 shadow rounded mb-5"></div>
-          <div className="border border-gray-300 h-36 shadow rounded mb-5"></div>
-          <div className="border border-gray-300 h-36 shadow rounded mb-5"></div>
-          <div className="border border-gray-300 h-36 shadow rounded mb-5"></div>
+          <InvestmentCard />
         </div>
       </div>
     </div>
