@@ -8,10 +8,12 @@ import {
 
 import { FaRegBookmark } from "react-icons/fa";
 import {
+  calculateCAGR,
   isLessThanOneYearOld,
   sortSmallcases,
   truncateText,
 } from "../helper/helper";
+import { TIME_PERIOD_BTN } from "../constants/constant";
 
 const riskLabelConfig = {
   "Low Volatility": {
@@ -31,8 +33,12 @@ const riskLabelConfig = {
   },
 };
 
-const InvestmentCard = ({ filters }) => {
-  sortSmallcases(Smallcases.data);
+const InvestmentCard = ({ filters, sort }) => {
+  sortSmallcases(Smallcases.data, sort);
+
+  const statsLabel = Object.values(TIME_PERIOD_BTN).find(
+    (value) => value.key === sort.sortBy
+  );
 
   const filteredSmallcases = Smallcases.data.filter((data) =>
     Object.entries(filters).every(([key, value]) => {
@@ -72,7 +78,7 @@ const InvestmentCard = ({ filters }) => {
   );
 
   console.log(filteredSmallcases);
-  console.log(filters);
+  // console.log(filters);
 
   return (
     <>
@@ -90,6 +96,14 @@ const InvestmentCard = ({ filters }) => {
             ratios: { cagrDuration },
           },
         } = data;
+
+        const calculatedCAGR =
+          data.stats.calculatedCAGR ||
+          calculateCAGR(
+            data.stats.indexValue,
+            data.stats.returns.threeYear,
+            3
+          ).toFixed(2);
 
         return (
           <div
@@ -130,8 +144,16 @@ const InvestmentCard = ({ filters }) => {
                     </p>
                   </div>
                   <div>
-                    <p className="text-gray-400 text-sm mb-2">{cagrDuration}</p>
-                    <p className="text-green-600 blur-xs">13.31%</p>
+                    <p className="text-gray-400 text-sm mb-2">
+                      {statsLabel?.label || cagrDuration}
+                    </p>
+                    <p
+                      className={`${
+                        calculatedCAGR >= 0 ? "text-green-600" : "text-red-600"
+                      }  blur-xs1`}
+                    >
+                      {calculatedCAGR}%
+                    </p>
                   </div>
                 </div>
 
