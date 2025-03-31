@@ -17,6 +17,11 @@ const Body = () => {
     launchDate: true,
   });
 
+  const [sort, setSort] = useState({
+    sortBy: "popularity",
+    orderby: "high-low",
+  });
+
   // Function to update filters dynamically
   const updateFilter = (key, value) => {
     setFilters((prevFilters) => ({
@@ -32,19 +37,28 @@ const Body = () => {
       investmentAmount: "any",
       riskLevelSelector: [],
       investmentStrategy: [],
-      launchDate: true,
+      launchDate: false,
     });
   };
 
   // **Calculate the count of applied filters**
-  const appliedFiltersCount = Object.values(filters).filter(
-    (value) => value !== null && value != "any"
-  ).length;
+  const appliedFiltersCount = Object.entries(filters).reduce(
+    (count, [, value]) => {
+      if (Array.isArray(value)) {
+        return count + value.length;
+      }
+      if (typeof value === "boolean") {
+        return count + (value ? 1 : 0);
+      }
+      return count + (value !== null && value !== "any" ? 1 : 0);
+    },
+    0
+  );
 
   return (
     <div className="lg:w-[1120px] mx-auto">
       {/* TABS */}
-      <Tabs />
+      <Tabs setSort={setSort} sort={sort} />
 
       <div className="flex mt-5">
         {/* Filter Section */}
@@ -114,7 +128,7 @@ const Body = () => {
 
         {/* Cards Section */}
         <div className="w-full py-4">
-          <InvestmentCard filters={filters} />
+          <InvestmentCard filters={filters} sort={sort} />
         </div>
       </div>
     </div>
