@@ -6,7 +6,7 @@ const InvestmentCardItem = ({ data, statsLabel }) => {
   const {
     _id,
     scid,
-    info: { name, shortDescription },
+    info: { name, shortDescription, publisherName },
     flags: { private: isPrivate },
     stats: {
       minInvestAmount,
@@ -50,7 +50,7 @@ const InvestmentCardItem = ({ data, statsLabel }) => {
               {truncateText(shortDescription)}
             </p>
             <span className="text-[#81878c] text-[15px] font-normal">
-              by Windmill Capital
+              by {publisherName}
             </span>
           </div>
 
