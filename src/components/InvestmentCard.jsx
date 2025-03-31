@@ -1,17 +1,32 @@
-import React from "react";
-import Smallcases from "../smallcases.json";
+import React, { useEffect, useState } from "react";
 import { isLessThanOneYearOld, sortSmallcases } from "../helper/helper";
 import { TIME_PERIOD_BTN } from "../constants/constant";
 import InvestmentCardItem from "./InvestmentCardItem";
+import * as SmallcaseAPIService from "../api/api.js";
 
 const InvestmentCard = ({ filters, sort }) => {
-  sortSmallcases(Smallcases.data, sort);
+  const [smallcaseData, setSmallcaseData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await SmallcaseAPIService.getData();
+        setSmallcaseData(data);
+      } catch (error) {
+        console.error("Error fetching smallcase data:", error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  sortSmallcases(smallcaseData, sort);
 
   const statsLabel = Object.values(TIME_PERIOD_BTN).find(
     (value) => value.key === sort.sortBy
   );
 
-  const filteredSmallcases = Smallcases.data.filter((data) =>
+  const filteredSmallcases = smallcaseData.filter((data) =>
     Object.entries(filters).every(([key, value]) => {
       switch (key) {
         case "subscriptionType":

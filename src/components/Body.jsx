@@ -41,7 +41,7 @@ const Body = () => {
     });
   };
 
-  // **Calculate the count of applied filters**
+  // Calculate the count of applied filters
   const appliedFiltersCount = Object.entries(filters).reduce(
     (count, [, value]) => {
       if (Array.isArray(value)) {

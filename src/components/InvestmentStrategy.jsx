@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Smallcases from "../smallcases.json";
 import { RiErrorWarningFill } from "react-icons/ri";
+import * as SmallcaseAPIService from "../api/api.js";
 
 const InvestmentStrategy = ({ investmentStrategy, setInvestmentStrategy }) => {
   const [strategies, setStrategies] = useState([]);
 
   useEffect(() => {
-    const getAllStrategies = () => {
+    const getAllStrategies = async () => {
+      const smallCaseData = await SmallcaseAPIService.getData();
       const strategiesMap = new Map();
 
-      Object.values(Smallcases)[2].forEach((smallcase) => {
+      Object.values(smallCaseData.data).forEach((smallcase) => {
         smallcase.info.investmentStrategy.forEach((strategy) => {
           if (!strategiesMap.has(strategy.key)) {
             strategiesMap.set(strategy.key, strategy);
