@@ -24,7 +24,7 @@ const InvestmentStrategy = ({ investmentStrategy, setInvestmentStrategy }) => {
       );
     };
     getAllStrategies();
-  }, [investmentStrategy]);
+  }, []);
 
   // Handle strategies
   const handleStrategies = (strategy) => {
