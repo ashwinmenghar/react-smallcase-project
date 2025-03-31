@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Smallcases from "../smallcases.json";
 import { RiErrorWarningFill } from "react-icons/ri";
 
-const InvestmentStrategy = ({ investmentStrategy, setRiskLevelSelector }) => {
+const InvestmentStrategy = ({ investmentStrategy, setInvestmentStrategy }) => {
   const [strategies, setStrategies] = useState([]);
 
   useEffect(() => {
@@ -18,18 +18,21 @@ const InvestmentStrategy = ({ investmentStrategy, setRiskLevelSelector }) => {
       });
 
       setStrategies(
-        Array.from(strategiesMap.values()).sort((a, b) => a.key.localeCompare(b.key))
+        Array.from(strategiesMap.values()).sort((a, b) =>
+          a.key.localeCompare(b.key)
+        )
       );
     };
     getAllStrategies();
-  }, []);
+  }, [investmentStrategy]);
 
+  // Handle strategies
   const handleStrategies = (strategy) => {
     const newInvestmentStrategy = investmentStrategy.includes(strategy.key)
       ? investmentStrategy.filter((key) => key !== strategy.key)
       : [...investmentStrategy, strategy.key];
 
-    setRiskLevelSelector(newInvestmentStrategy);
+    setInvestmentStrategy(newInvestmentStrategy);
   };
 
   return (
@@ -46,13 +49,16 @@ const InvestmentStrategy = ({ investmentStrategy, setRiskLevelSelector }) => {
         <div
           className="flex items-center hover:bg-gray-100 p-2 rounded cursor-pointer"
           key={strategy.key}
-          onChange={() => handleStrategies(strategy)}
+          onClick={() => handleStrategies(strategy)} // Handles click anywhere
         >
           <input
             id={strategy.key}
             type="checkbox"
             value={strategy.key}
             className="w-4 h-4 cursor-pointer"
+            checked={investmentStrategy.includes(strategy.key)}
+            onClick={(e) => e.stopPropagation()}
+            readOnly
           />
           <label
             htmlFor={strategy.key}
