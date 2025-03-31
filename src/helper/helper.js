@@ -1,19 +1,17 @@
 export const sortSmallcases = (data, sort) => {
-  console.log(sort);
-
   Object.entries(sort).every(([, value]) => {
     return data.sort((a, b) => {
       switch (value) {
         case "popularity": {
-          const rankA = a?.brokerMeta?.flags?.popular?.rank ?? Infinity;
-          const rankB = b?.brokerMeta?.flags?.popular?.rank ?? Infinity;
+          const rankA = a?.brokerMeta?.flags?.popular?.rank ?? 0;
+          const rankB = b?.brokerMeta?.flags?.popular?.rank ?? 0;
 
           return rankA - rankB || a.info.name.localeCompare(b.info.name);
         }
 
         case "minInvestAmount": {
-          const minInvestAmountOfA = a?.stats?.minInvestAmount ?? Infinity;
-          const minInvestAmountOfB = b?.stats?.minInvestAmount ?? Infinity;
+          const minInvestAmountOfA = a?.stats?.minInvestAmount ?? 0;
+          const minInvestAmountOfB = b?.stats?.minInvestAmount ?? 0;
 
           return minInvestAmountOfA - minInvestAmountOfB;
         }
@@ -41,12 +39,12 @@ export const sortSmallcases = (data, sort) => {
             a?.stats?.indexValue ?? 0,
             a?.stats?.returns?.[value] ?? 0,
             period
-          ).toFixed(2);
+          );
           const calculateCAGROfB = calculateCAGR(
             b?.stats?.indexValue ?? 0,
             b?.stats?.returns?.[value] ?? 0,
             period
-          ).toFixed(2);
+          );
 
           a.stats["calculatedCAGR"] = parseFloat(calculateCAGROfA);
           b.stats["calculatedCAGR"] = parseFloat(calculateCAGROfB);
@@ -61,6 +59,7 @@ export const sortSmallcases = (data, sort) => {
     });
   });
 };
+
 export const truncateText = (text, maxLength = 100) => {
   return text.length > maxLength
     ? text.slice(0, maxLength).trimEnd() + "..."
@@ -78,5 +77,5 @@ export const isLessThanOneYearOld = (dateString) => {
 export const calculateCAGR = (finalValue, returnRate, years) => {
   if (years <= 0) return 0;
   const initialValue = finalValue / (1 + returnRate); // Reverse calculate initial value
-  return ((finalValue / initialValue) ** (1 / years) - 1) * 100;
+  return (((finalValue / initialValue) ** (1 / years) - 1) * 100).toFixed(2);
 };
